@@ -69,8 +69,8 @@ installCmake()
         cd cmake-${version}.${build}/
         
         ./bootstrap
-        make -j4
-        make install
+        make -j4 EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17'
+        make -j4 EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17' install
         cmake --version
         cd ${CURDIR}
     fi
@@ -132,7 +132,8 @@ prepareLinux()
                 tar zxf autoconf-2.69.tar.gz
                 cd autoconf-2.69
                 ./configure
-                make && make install
+                make -j4 EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17'
+		make -j4 EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17' install
                 cd ..  
             fi
         else
@@ -211,8 +212,8 @@ prepareLinux()
         installCmake
         apt-get -y install git libtool 
         apt-get -y install autotools-dev
-        apt-get -y install autoreconf
-        apt-get -y install autoheader 
+        apt-get -y install autoconf
+       # apt-get -y install autoheader 
         apt-get -y install automake 
         installgo
 
@@ -475,8 +476,8 @@ cd ../../../
 
 fixshmdir
 
-cmake .
-make
+cmake EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17 -DCMAKE_POSITION_INDEPENDENT_CODE=on' .
+make -j4 EXTRA_CMAKE_OPTIONS='-DCMAKE_C_COMPILER=arm64-linux-gcc -DCMAKE_CXX_COMPILER=arm64-linux-gnu-g++ -DCXX_STANDARD_REQUIRED=c++17'
 cp src/openlitespeed  dist/bin/
 
 cpModuleSoFiles
