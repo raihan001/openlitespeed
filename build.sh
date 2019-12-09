@@ -446,7 +446,7 @@ preparelibquic
 
 
 cd ..
-git clone https://github.com/litespeedtech/third-party.git
+git clone https://github.com/raihan001/third-party.git
 mv third-party thirdparty
 mkdir thirdparty/lib64
 cd thirdparty/script/
